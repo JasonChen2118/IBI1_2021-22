@@ -6,7 +6,10 @@
 #   print dots
 
 triSum = 10
+# This can be improved by using "input" to customize the number of triangles.
 dotsSum = 0
+# Initialize the sum of dots.
+
 for i in range(1, triSum + 1):
     dotsSum = dotsSum + i
     print(dotsSum)
