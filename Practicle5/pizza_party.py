@@ -17,6 +17,7 @@ while True:
 # I set the condition as "True" to make an "infinite" loop until it meets the command "break".
     slices = (cuts ** 2 + cuts + 2) / 2
     cuts = cuts + 1
+    print(slices)
     if slices >= 64:
         break
         # Now it's time to jump out of this loop.
