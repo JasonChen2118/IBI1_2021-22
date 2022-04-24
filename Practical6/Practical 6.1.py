@@ -19,4 +19,15 @@ plt.ylabel('Risk for CHD')
 # extra labels to make it clear
 plt.show()
 
-print('The risk of CHD in the offspring of a father of 45 age is', d[45])
+
+age = int(input('age:'))
+i = 0
+while True:
+    if paternal_age[i] == age:
+        print('The risk of CHD in the offspring of a father of', age,  'is', chd[i])
+        break
+
+    i = i + 1
+
+    if i >= 10:
+        break
