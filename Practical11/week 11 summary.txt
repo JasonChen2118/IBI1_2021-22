@@ -1,0 +1,1 @@
+Through the python files Alignment.py, The similarity of these amino acid sequences between human and mouse is 96.55%. It is significantly higher than similarities between random sequence (3.10% and 3.45%) This indicates that human and mouse have strong genetic relationship. These two species may evolve from a common species.  
