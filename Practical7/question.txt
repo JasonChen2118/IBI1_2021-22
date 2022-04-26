@@ -1,0 +1,5 @@
+The question is: How have new cases and total cases developed over time in the UK?
+
+line 62 to 78 in covid.py address the question.
+
+From the plot, it is obvious that new cases and new death in the UK kept rising in 3 month. It went up slowly at the beginning but suddenly grew in a very high speed in March, 2020. 
