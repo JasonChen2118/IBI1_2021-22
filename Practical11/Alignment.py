@@ -1,40 +1,76 @@
-genedict = {}
+acid_code = ['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I',
+             'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V',
+             'B', 'Z', 'X']
+matrix = [
+    [ 4, -1, -2, -2,  0, -1, -1,  0, -2, -1, -1, -1, -1, -2, -1,  1,  0, -3, -2,  0, -2, -1,  0],
+    [-1,  5,  0, -2, -3,  1,  0, -2,  0, -3, -2,  2, -1, -3, -2, -1, -1, -3, -2, -3, -1,  0, -1],
+    [-2,  0,  6,  1, -3,  0,  0,  0,  1, -3, -3,  0, -2, -3, -2,  1,  0, -4, -2, -3,  3,  0, -1],
+    [-2, -2,  1,  6, -3,  0,  2, -1, -1, -3, -4, -1, -3, -3, -1,  0, -1, -4, -3, -3,  4,  1, -1],
+    [ 0, -3, -3, -3,  9, -3, -4, -3, -3, -1, -1, -3, -1, -2, -3, -1, -1, -2, -2, -1, -3, -3, -2],
+    [-1,  1,  0,  0, -3,  5,  2, -2,  0, -3, -2,  1,  0, -3, -1,  0, -1, -2, -1, -2,  0,  3, -1],
+    [-1,  0,  0,  2, -4,  2,  5, -2,  0, -3, -3,  1, -2, -3, -1,  0, -1, -3, -2, -2,  1,  4, -1],
+    [ 0, -2,  0, -1, -3, -2, -2,  6, -2, -4, -4, -2, -3, -3, -2,  0, -2, -2, -3, -3, -1, -2, -1],
+    [-2,  0,  1, -1, -3,  0,  0, -2,  8, -3, -3, -1, -2, -1, -2, -1, -2, -2,  2, -3,  0,  0, -1],
+    [-1, -3, -3, -3, -1, -3, -3, -4, -3,  4,  2, -3,  1,  0, -3, -2, -1, -3, -1,  3, -3, -3, -1],
+    [-1, -2, -3, -4, -1, -2, -3, -4, -3,  2,  4, -2,  2,  0, -3, -2, -1, -2, -1,  1, -4, -3, -1],
+    [-1,  2,  0, -1, -3,  1,  1, -2, -1, -3, -2,  5, -1, -3, -1,  0, -1, -3, -2, -2,  0,  1, -1],
+    [-1, -1, -2, -3, -1,  0, -2, -3, -2,  1,  2, -1,  5,  0, -2, -1, -1, -1, -1,  1, -3, -1, -1],
+    [-2, -3, -3, -3, -2, -3, -3, -3, -1,  0,  0, -3,  0,  6, -4, -2, -2,  1,  3, -1, -3, -3, -1],
+    [-1, -2, -2, -1, -3, -1, -1, -2, -2, -3, -3, -1, -2, -4,  7, -1, -1, -4, -3, -2, -2, -1, -2],
+    [ 1, -1,  1,  0, -1,  0,  0,  0, -1, -2, -2,  0, -1, -2, -1,  4,  1, -3, -2, -2,  0,  0,  0],
+    [ 0, -1,  0, -1, -1, -1, -1, -2, -2, -1, -1, -1, -1, -2, -1,  1,  5, -2, -2,  0, -1, -1,  0],
+    [-3, -3, -4, -4, -2, -2, -3, -2, -2, -3, -2, -3, -1,  1, -4, -3, -2, 11,  2, -3, -4, -3, -2],
+    [-2, -2, -2, -3, -2, -1, -2, -3,  2, -1, -1, -2, -1,  3, -3, -2, -2,  2,  7, -1, -3, -2, -1],
+    [ 0, -3, -3, -3, -1, -2, -2, -3, -3,  3,  1, -2,  1, -1, -2, -2,  0, -3, -1,  4, -3, -2, -1],
+    [-2, -1,  3,  4, -3,  0,  1, -1,  0, -3, -4,  0, -3, -3, -2,  0, -1, -4, -3, -3,  4,  1, -1],
+    [-1,  0,  0,  1, -3,  3,  4, -2,  0, -3, -3,  1, -1, -3, -1,  0, -1, -3, -2, -2,  1,  4, -1],
+    [ 0, -1, -1, -1, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2,  0,  0, -2, -1, -1, -1, -1, -1]]
 
-human = open('DLX5_human.fa')
-for line in human:
+
+def hamming_distance(seq1, seq2):
+    distance = 0
+    for i in range(len(seq1)):
+        if seq1[i] == seq2[i]:
+            distance = distance + 1
+    return distance
+
+
+def BLOSUM_score(seq1, seq2):
+    score = 0
+    for i in range(len(seq1)):
+        for j in range(len(acid_code)):
+            if acid_code[j] == seq1[i]:
+                x = j
+                break
+        for j in range(len(acid_code)):
+            if acid_code[j] == seq2[i]:
+                y = j
+                break
+        score = score + matrix[x][y]
+    return score
+
+
+human_file = open('DLX5_human.fa')
+for line in human_file:
     if not line.startswith(">"):
-        genedict['human'] = line
+        human = line
 
-mouse = open('DLX5_mouse.fa')
-for line in mouse:
+mouse_file = open('DLX5_mouse.fa')
+for line in mouse_file:
     if not line.startswith(">"):
-        genedict['mouse'] = line
+        mouse = line
 
-random = open('RandomSeq(1).fa')
-print(random)
-for line in random:
+random_file = open('RandomSeq(1).fa')
+for line in random_file:
     if not line.startswith(">"):
-        genedict['random'] = line
+        random = line
 
-human_mouse_ct = 0
-for i in range(len(genedict['human'])):
-    if genedict['human'][i] == genedict['mouse'][i]:
-        human_mouse_ct = human_mouse_ct + 1
-
-human_random_ct = 0
-for i in range(len(genedict['human'])):
-    if genedict['human'][i] == genedict['random'][i]:
-        human_random_ct = human_random_ct + 1
-
-mouse_random_ct = 0
-for i in range(len(genedict['mouse'])):
-    if genedict['mouse'][i] == genedict['random'][i]:
-        mouse_random_ct = mouse_random_ct + 1
-
-human_mouse_pc = human_mouse_ct / len(genedict['human'])
-human_random_pc = human_random_ct / len(genedict['human'])
-mouse_random_pc = mouse_random_ct / len(genedict['mouse'])
-
+human_mouse_ct = hamming_distance(human, mouse)
+human_random_ct = hamming_distance(human, random)
+mouse_random_ct = hamming_distance(mouse, random)
+human_mouse_pc = human_mouse_ct / len(human)
+human_random_pc = human_random_ct / len(human)
+mouse_random_pc = mouse_random_ct / len(mouse)
 print(human_mouse_ct, human_random_ct, mouse_random_ct)
 print(human_mouse_pc, human_random_pc, mouse_random_pc)
-
+print(BLOSUM_score(human, mouse), BLOSUM_score(human, random), BLOSUM_score(mouse, random))
