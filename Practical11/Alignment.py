@@ -65,12 +65,8 @@ for line in random_file:
     if not line.startswith(">"):
         random = line
 
-human_mouse_ct = hamming_distance(human, mouse) - 1
-human_random_ct = hamming_distance(human, random) - 1
-mouse_random_ct = hamming_distance(mouse, random) - 1
-human_mouse_pc = human_mouse_ct / (len(human) - 1)
-human_random_pc = human_random_ct / (len(human) - 1)
-mouse_random_pc = mouse_random_ct / (len(mouse) - 1)
-print(human_mouse_ct, human_random_ct, mouse_random_ct)
+human_mouse_pc = (hamming_distance(human, mouse) - 1) / (len(human) - 1)
+human_random_pc = (hamming_distance(human, random) - 1) / (len(human) - 1)
+mouse_random_pc = (hamming_distance(mouse, random) - 1) / (len(mouse) - 1)
 print(human_mouse_pc, human_random_pc, mouse_random_pc)
 print(BLOSUM_score(human, mouse), BLOSUM_score(human, random), BLOSUM_score(mouse, random))
