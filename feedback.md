@@ -1,3 +1,6 @@
 Week 4:
-The commit message was not informative enough, but it cannot be changed. So I did not made any improvement for this.
+The commit message was not informative enough. So I upload an improved commit message for this practical.
+
+Week 5:
+I checked the number of cuts, in addition.
 
