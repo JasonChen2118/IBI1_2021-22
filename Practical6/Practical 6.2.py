@@ -14,8 +14,8 @@ print(sorted(marks))
 # I merge the sorting step and printing step.
 
 plt.boxplot(marks, vert=True, whis=1.5, patch_artist=True, meanline=True, showbox=True, showcaps=True, showmeans=True,
-            showfliers=True,
-            notch=False)
+            showfliers=True, notch=False)
+plt.title("Marks")
 # showing the mean line
 plt.show()
 
